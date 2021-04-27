@@ -36,7 +36,7 @@ namespace GatewayTest
             using (var deviceClient = DeviceClient.Create(invalidIotHubAddress, validGatewayAddress, authenticationMethod))
             {
                 var cts = new CancellationTokenSource(1000);
-                await deviceClient.OpenAsync(cts.Token);
+                await deviceClient.OpenAsync(cts.Token); // This is the call that ultimately triggers the NullReferenceException.
                 await deviceClient.CloseAsync();
             }
         }
