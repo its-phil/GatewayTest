@@ -26,6 +26,10 @@ namespace GatewayTest
                 var cts = new CancellationTokenSource(1000);
                 try { await deviceClient.OpenAsync(cts.Token); }
                 catch (Exception ex) { Console.WriteLine($"Swallowed expected exception '{ex.Message}'."); }
+                finally
+                {
+                    await deviceClient.CloseAsync();
+                }
             }
 
             Console.WriteLine("Connecting to invalid IoT Hub address via valid gateway...");
@@ -33,6 +37,7 @@ namespace GatewayTest
             {
                 var cts = new CancellationTokenSource(1000);
                 await deviceClient.OpenAsync(cts.Token);
+                await deviceClient.CloseAsync();
             }
         }
 
